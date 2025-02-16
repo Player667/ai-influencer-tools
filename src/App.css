@@ -1,0 +1,205 @@
+/* Import Poppins (optional) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* Basic reset */
+
+{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+/* Use a smoother, modern font */
+body {
+font-family: 'Poppins', sans-serif;
+background: #f5e6ca; /* tan background */
+color: #333;
+}
+
+/* Container for the entire app */
+.app {
+display: flex;
+flex-direction: column;
+min-height: 100vh;
+}
+
+/* Header */
+.header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 1rem 2rem;
+}
+
+/* Logo text styling */
+.logo {
+font-size: 1.5rem;
+font-weight: 700;
+letter-spacing: 0.5px;
+color: #ff7f11; /* orange */
+}
+
+/* Top CTA button in the header */
+.top-cta {
+background: linear-gradient(135deg, #ff7f11, #ffa94d);
+color: #fff;
+padding: 0.8rem 1.4rem;
+border-radius: 6px;
+text-decoration: none;
+font-weight: 600;
+transition: all 0.2s ease;
+}
+
+.top-cta:hover {
+filter: brightness(1.15);
+}
+
+/* Hero Section */
+.hero {
+display: flex;
+flex-direction: column;
+justify-content: center;
+width: 100%;
+max-width: 1200px;
+margin: 0 auto;
+padding: 3rem 2rem;
+flex-grow: 1;
+}
+
+/* Layout for hero content */
+.hero-content {
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+align-items: center;
+gap: 2rem;
+}
+
+/* Hero left text */
+.hero-left {
+flex: 1 1 400px;
+max-width: 600px;
+}
+
+/* Gradient text for heading for extra flair */
+.hero-left h1 {
+font-size: 3.2rem;
+line-height: 1.1;
+font-weight: 700;
+margin-bottom: 1rem;
+background: linear-gradient(90deg, #ff7f11 0%, #ffa94d 50%, #ffd5b5 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+/* Subtitle text */
+.hero-left p {
+font-size: 1.1rem;
+margin-bottom: 1.5rem;
+color: #555;
+}
+
+/* Main CTA button */
+.cta-button {
+display: inline-block;
+background: linear-gradient(135deg, #ff7f11, #ffa94d);
+color: #fff;
+padding: 1rem 2rem;
+border-radius: 8px;
+font-size: 1rem;
+text-decoration: none;
+font-weight: 600;
+transition: all 0.2s ease;
+}
+
+.cta-button:hover {
+filter: brightness(1.15);
+transform: translateY(-1px);
+}
+
+/* Store buttons row */
+.store-buttons {
+display: flex;
+gap: 1rem;
+margin-top: 1.5rem;
+}
+
+/* Make store badges a bit bigger and uniform size */
+.store-buttons img {
+width: 150px;
+height: auto;
+cursor: pointer;
+transition: transform 0.2s ease;
+}
+.store-buttons img:hover {
+transform: scale(1.05);
+}
+
+/* Hero right: Phone gradient background + phone image */
+.hero-right {
+flex: 1 1 300px;
+display: flex;
+align-items: center;
+justify-content: center;
+min-height: 350px;
+border-radius: 12px;
+background: linear-gradient(135deg, #ff7f11, #ffa94d);
+position: relative;
+overflow: hidden;
+padding: 2rem;
+}
+
+/* Phone image styling: add drop shadow + hover scale for emphasis */
+.phone-image {
+width: 250px;
+height: auto;
+box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+border-radius: 20px;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.phone-image:hover {
+transform: scale(1.04);
+box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* Trusted By Section */
+.trusted-by {
+text-align: center;
+margin: 3rem 0 2rem;
+}
+
+/* Trusted by text style */
+.trusted-by p {
+font-size: 1.1rem;
+color: #555;
+margin-bottom: 1.5rem;
+}
+
+/* University logos */
+.university-logos {
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+gap: 2rem;
+}
+
+.university-logos img {
+filter: grayscale(100%);
+opacity: 0.6;
+max-height: 40px;
+transition: opacity 0.2s, filter 0.2s;
+}
+.university-logos img:hover {
+opacity: 1;
+filter: none;
+}
+
+/* Footer */
+.footer {
+text-align: center;
+padding: 1.5rem 1rem;
+color: #333;
+font-size: 0.9rem;
+background-color: #f5e6ca;
+}
+
