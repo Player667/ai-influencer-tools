@@ -3,17 +3,12 @@
 
 /* Basic reset */
 
-{
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-}
 
 /* Use a smoother, modern font */
 body {
 font-family: 'Poppins', sans-serif;
-background: #f5e6ca; /* tan background */
-color: #333;
+background: #0f0f0f; /* black background */
+color: #fff;
 }
 
 /* Container for the entire app */
@@ -36,17 +31,19 @@ padding: 1rem 2rem;
 font-size: 1.5rem;
 font-weight: 700;
 letter-spacing: 0.5px;
-color: #ff7f11; /* orange */
+color: #6e44ff; /* purple */
 }
 
 /* Top CTA button in the header */
 .top-cta {
-background: linear-gradient(135deg, #ff7f11, #ffa94d);
+background: linear-gradient(135deg, #6e44ff, #905fff);
 color: #fff;
 padding: 0.8rem 1.4rem;
 border-radius: 6px;
 text-decoration: none;
 font-weight: 600;
+font-size: 0.75rem;
+
 transition: all 0.2s ease;
 }
 
@@ -87,7 +84,7 @@ font-size: 3.2rem;
 line-height: 1.1;
 font-weight: 700;
 margin-bottom: 1rem;
-background: linear-gradient(90deg, #ff7f11 0%, #ffa94d 50%, #ffd5b5 100%);
+background: linear-gradient(90deg, #6e44ff 0%, #905fff 50%, #c5b3ff 100%);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
 }
@@ -96,20 +93,21 @@ background: linear-gradient(90deg, #ff7f11 0%, #ffa94d 50%, #ffd5b5 100%);
 .hero-left p {
 font-size: 1.1rem;
 margin-bottom: 1.5rem;
-color: #555;
+color: #ccc;
 }
 
 /* Main CTA button */
 .cta-button {
 display: inline-block;
-background: linear-gradient(135deg, #ff7f11, #ffa94d);
+background: linear-gradient(135deg, #6e44ff, #905fff);
 color: #fff;
 padding: 1rem 2rem;
 border-radius: 8px;
-font-size: 1rem;
+font-size: 0.8rem;
 text-decoration: none;
 font-weight: 600;
 transition: all 0.2s ease;
+align-self: center;
 }
 
 .cta-button:hover {
@@ -143,7 +141,7 @@ align-items: center;
 justify-content: center;
 min-height: 350px;
 border-radius: 12px;
-background: linear-gradient(135deg, #ff7f11, #ffa94d);
+background: linear-gradient(135deg, #6e44ff, #905fff);
 position: relative;
 overflow: hidden;
 padding: 2rem;
@@ -171,7 +169,7 @@ margin: 3rem 0 2rem;
 /* Trusted by text style */
 .trusted-by p {
 font-size: 1.1rem;
-color: #555;
+color: #ccc;
 margin-bottom: 1.5rem;
 }
 
@@ -198,9 +196,9 @@ filter: none;
 .footer {
 text-align: center;
 padding: 1.5rem 1rem;
-color: #333;
+color: #ccc;
 font-size: 0.9rem;
-background-color: #f5e6ca;
+background-color: #0f0f0f;
 }
 
 .signin-container {
@@ -213,23 +211,23 @@ background-color: #f5e6ca;
     color: #fff;
     text-align: center;
   }
-  
-  .signin-form {
+
+.signin-form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     width: 300px;
     margin-top: 2rem;
   }
-  
-  .signin-form input {
+
+.signin-form input {
     padding: 0.75rem;
     border: none;
     border-radius: 5px;
     font-size: 1rem;
   }
-  
-  .signin-form button {
+
+.signin-form button {
     padding: 0.75rem;
     border: none;
     border-radius: 5px;
@@ -239,9 +237,7 @@ background-color: #f5e6ca;
     cursor: pointer;
     transition: background-color 0.3s;
   }
-  
-  .signin-form button:hover {
+
+.signin-form button:hover {
     background-color: #eee;
   }
-  
-

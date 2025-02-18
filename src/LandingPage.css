@@ -1,0 +1,84 @@
+/* Full-screen center layout with a sleek gradient background */
+.landing-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a0a0a, #1f1f1f);
+    color: #fff;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .landing-content {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  /* Typing text container: inline-block allows wrapping + keeps the cursor at the end */
+  .typing-text {
+    display: inline-block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+    letter-spacing: 1px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    position: relative;
+  }
+  
+  /* Blinking cursor effect */
+  .typing-cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1em; /* matches font size */
+    background-color: #fff;
+    margin-left: 6px;
+    animation: blink 0.7s infinite;
+    position: relative;
+    top: 0.1em; /* Adjust as needed for vertical centering */
+  }
+  
+  @keyframes blink {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+  
+  /* CTA button */
+  .cta-button {
+    text-decoration: none;
+    color: #fff;
+
+    background: 7a5fff;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: transform 0.2s ease, filter 0.3s ease;
+    box-shadow: 0 5px 20px rgba(144, 95, 255, 0.5);
+  }
+  
+  .cta-button:hover {
+    filter: brightness(1.2);
+    transform: translateY(-5px);
+  }
+  
+  .cta-button:active {
+    transform: scale(0.98);
+  }
+  
+  
+  /* Optional: background animation if desired */
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  

@@ -1,34 +1,79 @@
-import React from 'react';
-import './SignUp.css'; // <-- make sure to create SignUp.css (see below)
+// src/Screens/SignUp.js
+import React, { useState } from 'react';
+import '../SignUp.css';
+import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { auth } from '../firebaseConfig';
 
-function SignUp() {
+// Initialize Google Auth Provider
+const googleProvider = new GoogleAuthProvider();
+
+const SignUp = () => {
+  // State for form data
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  });
+
+  // Handle input changes
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
+
+  // Handle Google Sign-In
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      console.log('Google Sign-In successful:', result.user);
+    } catch (error) {
+      console.error('Google Sign-In failed:', error.message);
+    }
+  };
+
+  // Handle Email/Password Sign-Up
+  const handleSignUp = async () => {
+    const { email, password, firstName, lastName } = formData;
+    if (!firstName || !lastName || !email || !password) {
+      alert('Please fill in all fields.');
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Update user's display name
+      await updateProfile(user, { displayName: `${firstName} ${lastName}` });
+      
+      console.log('User signed up successfully:', user);
+      alert('Account created successfully!');
+    } catch (error) {
+      console.error('Sign-up failed:', error.message);
+      alert(`Sign-up failed: ${error.message}`);
+    }
+  };
+
   return (
     <div className="signup-page">
       <div className="signup-card">
         <h1 className="signup-title">Sign Up</h1>
         <p className="signup-subtitle">
-          Create notes in minutes. Free forever. No credit card required.
+            Create personalized content in minutes with AI. No credit card required.
         </p>
 
-        {/* Continue with Google button */}
-        <button className="google-button">
-          {/* Ideally use an actual Google icon; a placeholder text here */}
-          <span className="google-icon">G</span>
-          Continue with Google
-        </button>
-
-        <div className="divider">
-          <span>OR</span>
-        </div>
-
-        {/* First/Last name fields side-by-side */}
+        {/* First/Last name fields */}
         <div className="name-fields">
           <div className="form-group">
             <label htmlFor="firstName">First name</label>
             <input
               type="text"
               id="firstName"
-              placeholder="Sarthak"
+              placeholder="Shashank"
+              value={formData.firstName}
+              onChange={handleChange}
+              required
             />
           </div>
           <div className="form-group">
@@ -36,42 +81,65 @@ function SignUp() {
             <input
               type="text"
               id="lastName"
-              placeholder="Dhawan"
+              placeholder="Polanki"
+              value={formData.lastName}
+              onChange={handleChange}
+              required
             />
           </div>
         </div>
 
+        {/* Email */}
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
-            placeholder="sarthak@example.com"
+            placeholder="shashankp@example.com"
+            value={formData.email}
+            onChange={handleChange}
+            required
           />
         </div>
 
+        {/* Password */}
         <div className="form-group">
           <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
-            placeholder=""
+            placeholder="Enter your password"
+            value={formData.password}
+            onChange={handleChange}
+            required
           />
         </div>
 
-        <button className="signup-button">Create an account</button>
+        {/* Create Account Button */}
+        <button className="signup-button" onClick={handleSignUp}>
+          Create an account
+        </button>
 
+        {/* Google Sign-In Button */}
+        <button className="new-google-button" onClick={handleGoogleSignIn}>
+          <span className="new-google-icon">G</span>
+          Sign in with Google
+        </button>
+
+        {/* Switch to Sign-In */}
         <p className="switch-auth">
           Already have an account? <a href="/signin">Sign in</a>
         </p>
       </div>
 
+      {/* Footer */}
       <p className="terms-footer">
         By creating or entering an account, you agree to the{" "}
         <a href="/">Terms of Service</a> and <a href="/">Privacy Policy</a>.
       </p>
     </div>
   );
-}
+};
 
+// Correctly place export statement here
 export default SignUp;
