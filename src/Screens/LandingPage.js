@@ -1,90 +1,56 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import '../LandingPage.css';
+import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
+import '../LandingPage.css'; // Ensure the path is correct
+
+import AppStoreBadge from '../Images/appstore-badge.png';
+import GooglePlayBadge from '../Images/playstore-badge.png';
+import DemoVideo from '../Images/demo2.mp4';
 
 function LandingPage() {
-  // All the lines we want typed (including the final text)
-  const messages = [
-    "I want to engage my fans with AI.",
-    "I want to build authentic connections.",
-    "I want to create personalized content with AI.",
-    "Connect with your fans like never before!" // final line typed
-  ];
+  const navigate = useNavigate(); // Initialize the navigation hook
 
-  const typingSpeed = 80;    // ms per character typed
-  const erasingSpeed = 50;   // ms per character erased
-  const delayBetween = 1000; // ms delay after a line is fully typed before erasing
-
-  const [messageIndex, setMessageIndex] = useState(0);
-  const [typedText, setTypedText] = useState("");
-  const [deleting, setDeleting] = useState(false);
-  const [showCTA, setShowCTA] = useState(false); // for showing the CTA after final typing
-
-  // Determine if we're on the last message
-  const isLastMessage = messageIndex === messages.length - 1;
-  // Determine if the current message is fully typed
-  const isFullyTyped = typedText.length === messages[messageIndex]?.length;
-  // Show cursor only if we haven't fully typed the last message
-  const showCursor = !(isLastMessage && isFullyTyped);
-
-  useEffect(() => {
-    // If we've typed all messages, do nothing
-    if (messageIndex >= messages.length) return;
-
-    const currentMessage = messages[messageIndex];
-    let timer;
-
-    if (!deleting) {
-      // Typing forward
-      if (typedText.length < currentMessage.length) {
-        // Add one character
-        timer = setTimeout(() => {
-          setTypedText(currentMessage.slice(0, typedText.length + 1));
-        }, typingSpeed);
-      } else {
-        // Finished typing current line
-        if (!isLastMessage) {
-          // If not the last message, wait a bit, then start deleting
-          timer = setTimeout(() => setDeleting(true), delayBetween);
-        } else {
-          // If this is the final message, reveal the CTA
-          setShowCTA(true);
-        }
-      }
-    } else {
-      // Deleting
-      if (typedText.length > 0) {
-        // Erase one character
-        timer = setTimeout(() => {
-          setTypedText(currentMessage.slice(0, typedText.length - 1));
-        }, erasingSpeed);
-      } else {
-        // Once fully erased, move to next message
-        setDeleting(false);
-        setMessageIndex((prev) => prev + 1);
-      }
-    }
-
-    return () => clearTimeout(timer);
-  }, [typedText, deleting, messageIndex, messages, isLastMessage]);
+  // Function to handle CTA button click
+  const handleCTAClick = () => {
+    navigate('/signup'); // Redirect to the Sign-Up page
+  };
 
   return (
-    <div className="landing-container">
-      <div className="landing-content">
-        
-        {/* Always display the typed text. Conditionally show the cursor. */}
-        <h1 className="typing-text">
-          {typedText}
-          {showCursor && <span className="typing-cursor" />}
-        </h1>
+    <div className="landing-page">
+      {/* Navbar */}
+      <nav className="navbar">
+        <div className="logo-container">
+          <span className="brand-name">influ.ai</span>
+        </div>
+        <button className="nav-btn" onClick={handleCTAClick}>
+          Start today – It’s Free
+        </button>
+      </nav>
 
-        {/* Show CTA button once final text is fully typed */}
-        {showCTA && (
-          <Link to="/signup" className="cta-button">
-            Get Started
-          </Link>
-        )}
-      </div>
+      {/* Hero Section (centered) */}
+      <section className="hero-section">
+        <div className="hero-content">
+          <h1 className="hero-title">Let AI amplify your influence</h1>
+          <p className="hero-subtext">
+            Instant AI-powered content creation, audience insights, and influencer analytics.
+          </p>
+          <div className="store-badges">
+            <img src={AppStoreBadge} alt="App Store" className="badge" />
+            <img src={GooglePlayBadge} alt="Google Play" className="badge" />
+          </div>
+
+          {/* Purple Gradient Box with Demo Video */}
+          <div className="gradient-box">
+            <video
+              className="demo-video"
+              src={DemoVideo}
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

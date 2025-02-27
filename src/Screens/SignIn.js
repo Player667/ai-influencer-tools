@@ -1,14 +1,18 @@
 // src/SignIn.js
 import React, { useState } from 'react';
-import '../SignIn.css'; // Make sure to create this CSS file
+import '../SignIn.css'; 
 import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebaseConfig';
+import { auth } from '../config/firebaseConfig';
+import { useNavigate } from 'react-router-dom';
+
 
 // Initialize Google Auth Provider
 const googleProvider = new GoogleAuthProvider();
 
+
 const SignIn = () => {
   // State for email, password, and validation
+  const navigate = useNavigate(); // Initialize navigation
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -31,7 +35,7 @@ const SignIn = () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       console.log('Google Sign-In successful:', result.user);
-      alert(`Welcome, ${result.user.displayName}!`);
+      navigate('/pricing'); // Navigate to Pricing page
     } catch (error) {
       console.error('Google Sign-In failed:', error.message);
       alert(`Google Sign-In failed: ${error.message}`);
@@ -57,7 +61,7 @@ const SignIn = () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log('Email Sign-In successful:', userCredential.user);
-      alert(`Welcome back, ${userCredential.user.displayName || 'User'}!`);
+      navigate('/pricing'); // Navigate to Pricing page
     } catch (error) {
       console.error('Email Sign-In failed:', error.message);
       alert(`Sign-In failed: ${error.message}`);

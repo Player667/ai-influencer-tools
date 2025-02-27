@@ -2,13 +2,16 @@
 import React, { useState } from 'react';
 import '../SignUp.css';
 import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { auth } from '../firebaseConfig';
+import { auth } from '../config/firebaseConfig';
+import { useNavigate } from 'react-router-dom';
+
 
 // Initialize Google Auth Provider
 const googleProvider = new GoogleAuthProvider();
 
 const SignUp = () => {
   // State for form data
+  const navigate = useNavigate(); // Initialize navigation
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -26,7 +29,7 @@ const SignUp = () => {
   const handleGoogleSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      console.log('Google Sign-In successful:', result.user);
+      navigate('/pricing'); // Navigate to Pricing page
     } catch (error) {
       console.error('Google Sign-In failed:', error.message);
     }
@@ -48,7 +51,7 @@ const SignUp = () => {
       await updateProfile(user, { displayName: `${firstName} ${lastName}` });
       
       console.log('User signed up successfully:', user);
-      alert('Account created successfully!');
+      navigate('/pricing'); // Navigate to Pricing page
     } catch (error) {
       console.error('Sign-up failed:', error.message);
       alert(`Sign-up failed: ${error.message}`);

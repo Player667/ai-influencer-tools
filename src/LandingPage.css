@@ -1,84 +1,209 @@
-/* Full-screen center layout with a sleek gradient background */
-.landing-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0a0a0a, #1f1f1f);
-    color: #fff;
-    padding: 2rem;
-    text-align: center;
-  }
-  
-  .landing-content {
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  
-  /* Typing text container: inline-block allows wrapping + keeps the cursor at the end */
-  .typing-text {
-    display: inline-block;
-    font-family: 'Poppins', sans-serif;
-    font-size: 2.5rem;
-    font-weight: 600;
-    margin-bottom: 2rem;
-    line-height: 1.2;
-    letter-spacing: 1px;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
-    position: relative;
-  }
-  
-  /* Blinking cursor effect */
-  .typing-cursor {
-    display: inline-block;
-    width: 3px;
-    height: 1em; /* matches font size */
-    background-color: #fff;
-    margin-left: 6px;
-    animation: blink 0.7s infinite;
-    position: relative;
-    top: 0.1em; /* Adjust as needed for vertical centering */
-  }
-  
-  @keyframes blink {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-  }
-  
-  /* CTA button */
-  .cta-button {
-    text-decoration: none;
-    color: #fff;
+/* ------------------------------------------------ */
+/* OPTIONAL FONT IMPORTS (if not done globally)     */
+/* ------------------------------------------------ */
+/* 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+*/
 
-    background: 7a5fff;
-    padding: 1rem 2rem;
+/* ------------------------------------------------ */
+/* RESET & GLOBAL                                   */
+/* ------------------------------------------------ */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif; /* or 'Poppins', if you prefer */
+    background: #0c0c0c; /* black background */
+    color: #fff;
+  }
+  
+
+/* ------------------------------------------------ */
+/* LANDING PAGE LAYOUT                              */
+/* ------------------------------------------------ */
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden; /* So the blurred circles won't cause scrollbars */
+}
+
+/* Optional blurred circles - make them very subtle */
+.landing-page::before,
+.landing-page::after {
+  content: "";
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: rgba(26, 26, 26, 0.5); /* Very low opacity */
+  filter: blur(100px);
+  z-index: 0;
+}
+
+.landing-page::before {
+  top: -250px;
+  left: -200px;
+}
+
+.landing-page::after {
+  bottom: -250px;
+  right: -200px;
+}
+
+/* ------------------------------------------------ */
+/* NAVBAR                                           */
+/* ------------------------------------------------ */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: transparent; /* or #0c0c0c if you want a bar color */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.nav-btn {
+    background-color: #0f0f0f;
+    border: 1px solid #fff;
     border-radius: 10px;
-    font-size: 1.2rem;
+    color: #fff;
+    font-size: 0.7rem;
     font-weight: 600;
-    transition: transform 0.2s ease, filter 0.3s ease;
-    box-shadow: 0 5px 20px rgba(144, 95, 255, 0.5);
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
   }
-  
-  .cta-button:hover {
-    filter: brightness(1.2);
-    transform: translateY(-5px);
+  .nav-btn:hover {
+    background-color: #1c1c1c; /* slightly darker */
+    transform: translateY(-2px);
   }
-  
-  .cta-button:active {
-    transform: scale(0.98);
+
+/* ------------------------------------------------ */
+/* HERO SECTION (center everything)                 */
+/* ------------------------------------------------ */
+.hero-section {
+  flex: 1; /* So this section expands to fill leftover space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* For stacking context (blur circles behind) */
+  z-index: 1;         /* Above blurred background */
+  text-align: center; /* Center text horizontally */
+  padding: 2rem 1rem; /* Some padding for spacing */
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 600px; /* Limit hero text width for better readability */
+  align-items: center; /* Center items horizontally */
+}
+
+/* HEADLINE */
+.hero-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #ccc;
+  line-height: 1.2;
+}
+
+.hero-cta {
+    background-color: #0f0f0f;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+    width: fit-content;
   }
-  
-  
-  /* Optional: background animation if desired */
-  @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+  .hero-cta:hover {
+    background-color: #1c1c1c; 
+    transform: translateY(-2px);
   }
-  
+
+/* SUBTEXT */
+.hero-subtext {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #ccc;
+  max-width: 500px; /* narrower text block */
+}
+
+/* STORE BADGES */
+.store-badges {
+  display: flex;
+  gap: 1rem;
+}
+.badge {
+  height: 45px;
+  width: auto;
+}
+
+.badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(122, 95, 255, 0.3);
+  }
+
+/* Make the gradient very minimal */
+.gradient-box {
+    background: linear-gradient(
+      135deg,
+      rgba(122, 95, 255, 0.1),
+      rgba(156, 133, 255, 0.1)
+    );
+    border-radius: 12px;
+    /* Soften the glow */
+    box-shadow: 0 0 20px rgba(122, 95, 255, 0.2);
+    width: 400px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Ensure video doesn't overflow */
+    position: relative;
+    background-color: #000; /* optional: ensures black behind letterbox */
+  }
+
+/* adjust size on bigger screens if you wish */
+@media (min-width: 768px) {
+  .gradient-box {
+    width: 480px;
+    height: 300px;
+  }
+}
+
+.demo-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  border-radius: 12px;
+}
+
