@@ -6,6 +6,7 @@ import SignIn from './Screens/SignIn';
 import SignUp from './Screens/SignUp';
 import './App.css';
 import Pricing from './Screens/Pricing';
+import Dashboard from './Screens/Dashboard';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/pricing" element={<Pricing />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );

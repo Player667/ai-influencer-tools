@@ -1,17 +1,16 @@
-// src/Screens/SignUp.js
+// SignUp.js
 import React, { useState } from 'react';
-import '../SignUp.css';
 import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../config/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 
+// Import the module
+import styles from '../SignUp.module.css';
 
-// Initialize Google Auth Provider
 const googleProvider = new GoogleAuthProvider();
 
 const SignUp = () => {
-  // State for form data
-  const navigate = useNavigate(); // Initialize navigation
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -19,23 +18,20 @@ const SignUp = () => {
     password: '',
   });
 
-  // Handle input changes
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormData({ ...formData, [id]: value });
+    setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
-  // Handle Google Sign-In
   const handleGoogleSignIn = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      navigate('/pricing'); // Navigate to Pricing page
+      await signInWithPopup(auth, googleProvider);
+      navigate('/pricing');
     } catch (error) {
       console.error('Google Sign-In failed:', error.message);
     }
   };
 
-  // Handle Email/Password Sign-Up
   const handleSignUp = async () => {
     const { email, password, firstName, lastName } = formData;
     if (!firstName || !lastName || !email || !password) {
@@ -46,12 +42,8 @@ const SignUp = () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
-      // Update user's display name
       await updateProfile(user, { displayName: `${firstName} ${lastName}` });
-      
-      console.log('User signed up successfully:', user);
-      navigate('/pricing'); // Navigate to Pricing page
+      navigate('/pricing');
     } catch (error) {
       console.error('Sign-up failed:', error.message);
       alert(`Sign-up failed: ${error.message}`);
@@ -59,16 +51,16 @@ const SignUp = () => {
   };
 
   return (
-    <div className="signup-page">
-      <div className="signup-card">
-        <h1 className="signup-title">Sign Up</h1>
-        <p className="signup-subtitle">
-            Create personalized content in minutes with AI. No credit card required.
+    <div className={styles.signupPage}>
+      <div className={styles.signupCard}>
+        <h1 className={styles.signupTitle}>Sign Up</h1>
+        <p className={styles.signupSubtitle}>
+          Create personalized content in minutes with AI. No credit card required.
         </p>
 
         {/* First/Last name fields */}
-        <div className="name-fields">
-          <div className="form-group">
+        <div className={styles.nameFields}>
+          <div className={styles.formGroup}>
             <label htmlFor="firstName">First name</label>
             <input
               type="text"
@@ -79,7 +71,7 @@ const SignUp = () => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label htmlFor="lastName">Last name</label>
             <input
               type="text"
@@ -93,7 +85,7 @@ const SignUp = () => {
         </div>
 
         {/* Email */}
-        <div className="form-group">
+        <div className={styles.formGroup}>
           <label htmlFor="email">Email</label>
           <input
             type="email"
@@ -106,7 +98,7 @@ const SignUp = () => {
         </div>
 
         {/* Password */}
-        <div className="form-group">
+        <div className={styles.formGroup}>
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -119,30 +111,29 @@ const SignUp = () => {
         </div>
 
         {/* Create Account Button */}
-        <button className="signup-button" onClick={handleSignUp}>
+        <button className={styles.signupButton} onClick={handleSignUp}>
           Create an account
         </button>
 
         {/* Google Sign-In Button */}
-        <button className="new-google-button" onClick={handleGoogleSignIn}>
-          <span className="new-google-icon">G</span>
+        <button className={styles.newGoogleButton} onClick={handleGoogleSignIn}>
+          <span className={styles.newGoogleIcon}>G</span>
           Sign in with Google
         </button>
 
         {/* Switch to Sign-In */}
-        <p className="switch-auth">
+        <p className={styles.switchAuth}>
           Already have an account? <a href="/signin">Sign in</a>
         </p>
       </div>
 
       {/* Footer */}
-      <p className="terms-footer">
-        By creating or entering an account, you agree to the{" "}
+      <p className={styles.termsFooter}>
+        By creating or entering an account, you agree to the{' '}
         <a href="/">Terms of Service</a> and <a href="/">Privacy Policy</a>.
       </p>
     </div>
   );
 };
 
-// Correctly place export statement here
 export default SignUp;

@@ -1,47 +1,47 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
-import '../LandingPage.css'; // Ensure the path is correct
+import { useNavigate } from 'react-router-dom';
+import styles from '../LandingPage.module.css'; // Import the CSS module
 
 import AppStoreBadge from '../Images/appstore-badge.png';
 import GooglePlayBadge from '../Images/playstore-badge.png';
 import DemoVideo from '../Images/demo2.mp4';
 
-function LandingPage() {
-  const navigate = useNavigate(); // Initialize the navigation hook
 
-  // Function to handle CTA button click
+function LandingPage() {
+  const navigate = useNavigate();
+
   const handleCTAClick = () => {
     navigate('/signup'); // Redirect to the Sign-Up page
   };
 
   return (
-    <div className="landing-page">
+    <div className={styles.landingPage}>
       {/* Navbar */}
-      <nav className="navbar">
-        <div className="logo-container">
-          <span className="brand-name">influ.ai</span>
+      <nav className={styles.navbar}>
+        <div className={styles.logoContainer}>
+          <span className={styles.brandName}>influ.ai</span>
         </div>
-        <button className="nav-btn" onClick={handleCTAClick}>
+        <button className={styles.navBtn} onClick={handleCTAClick}>
           Start today – It’s Free
         </button>
       </nav>
 
-      {/* Hero Section (centered) */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <h1 className="hero-title">Let AI amplify your influence</h1>
-          <p className="hero-subtext">
+      {/* Hero Section */}
+      <section className={styles.heroSection}>
+        <div className={styles.heroContent}>
+          <h1 className={styles.heroTitle}>Let AI amplify your influence</h1>
+          <p className={styles.heroSubtext}>
             Instant AI-powered content creation, audience insights, and influencer analytics.
           </p>
-          <div className="store-badges">
-            <img src={AppStoreBadge} alt="App Store" className="badge" />
-            <img src={GooglePlayBadge} alt="Google Play" className="badge" />
+          <div className={styles.storeBadges}>
+            <img src={AppStoreBadge} alt="App Store" className={styles.badge} />
+            <img src={GooglePlayBadge} alt="Google Play" className={styles.badge} />
           </div>
 
           {/* Purple Gradient Box with Demo Video */}
-          <div className="gradient-box">
+          <div className={styles.gradientBox}>
             <video
-              className="demo-video"
+              className={styles.demoVideo}
               src={DemoVideo}
               autoPlay
               loop

@@ -1,0 +1,271 @@
+/* SignIn.module.css */
+
+/* (Optional) Remove or relocate your global resets/fonts
+   If you do want them global, wrap them in :global { } 
+   or put them in another global file. */
+
+/*
+:global(*),
+:global(*::before),
+:global(*::after) {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:global(body) {
+  font-family: 'Inter', sans-serif;
+  background: #1a1a1a;
+  color: #fff;
+}
+*/
+
+/* Now the local classes: */
+
+.signinPage {
+    min-height: 100vh;
+    background-color: #0f0f0f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    color: #fff;
+  }
+  
+  .signinCard {
+    background-color: #0f0f0f;
+    border: 1px solid #333;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+    width: 100%;
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-sizing: border-box;
+  }
+
+  /* blurred circles */
+  .signinPage::before,
+  .signinPage::after {
+    content: "";
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: rgba(26, 26, 26, 0.5);
+    filter: blur(100px);
+    z-index: 0;
+  }
+  
+  .signinPage::before {
+    top: -250px;
+    left: -200px;
+  }
+  .signinPage::after {
+    bottom: -250px;
+    right: -200px;
+  }
+  
+  .signinTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .signinSubtitle {
+    font-size: 0.7rem;
+    color: #ccc;
+    line-height: 1.3;
+  }
+  
+  /* Example of continuing with the same style names but as .providerButton */
+  .providerButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1c1c1c;
+    color: #ccc;
+    font-size: 0.9rem;
+    border: 1px solid #333;
+    border-radius: 13px;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    gap: 0.5rem;
+    transition: background-color 0.2s;
+  }
+  .providerButton:hover {
+    background-color: #2a2a2a;
+  }
+  
+  /* .googleIcon, .appleIcon, etc. 
+     If you still want them local, rename them similarly: */
+  .googleIcon {
+    font-weight: bold;
+    color: #4285f4;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Divider classes, renamed */
+  .divider {
+    position: relative;
+    text-align: center;
+    margin: 2rem 0;
+  }
+  .divider::before,
+  .divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #333;
+  }
+  .divider::before {
+    left: 0;
+  }
+  .divider::after {
+    right: 0;
+  }
+  .divider span {
+    position: relative;
+    z-index: 1;
+    background: #1a1a1a;
+    padding: 0 0.5rem;
+  }
+  
+  /* Form groups & inputs */
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .formGroup label {
+    font-size: 0.75rem;
+    color: #aaaaaa;
+  }
+  .formGroup input {
+    background-color: #1c1c1c;
+    color: #ccc;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 0.6rem;
+    font-size: 0.75rem;
+    outline: none;
+    width: 100%;
+    height: 35px;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .formGroup input::placeholder {
+    background-color: #1c1c1c;
+    color: #666;
+  }
+  .formGroup input:focus {
+    background: #1a1a1a;
+    border-color: #7a5fff;
+  }
+  
+  /* Sign-in button */
+  .signinButton {
+    background-color: #141414;
+    border-radius: 10px;
+    border: 1px solid #fff;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+  }
+  .signinButton:hover {
+    background-color: #1c1c1c;
+  }
+  
+  /* Switch-auth link */
+  .switchAuth {
+    text-align: center;
+    font-size: 0.75rem;
+    margin-top: 0.2rem;
+  }
+  .switchAuth a {
+    color: #7a5fff;
+    text-decoration: none;
+  }
+  .switchAuth a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Terms-footer */
+  .termsFooter {
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
+    color: #777;
+    text-align: center;
+    max-width: 360px;
+    line-height: 1.2;
+  }
+  .termsFooter a {
+    color: #7a5fff;
+    text-decoration: none;
+  }
+  .termsFooter a:hover {
+    text-decoration: underline;
+  }
+  
+  /* New Google Button */
+  .newGoogleSection {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+  .newGoogleButton {
+    background-color: #141414;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+    border: 1px solid #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s;
+    text-align: center;
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+  }
+  .newGoogleButton:hover {
+    background-color: #1c1c1c;
+  }
+  .newGoogleIcon {
+    background-color: transparent;
+    color: #4285f4;
+    font-weight: bold;
+    font-size: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Red border for invalid inputs */
+  .inputError {
+    border: 2px solid red;
+    outline: none;
+  }
+  .inputError::placeholder {
+    color: red;
+    opacity: 0.7;
+  }
+  

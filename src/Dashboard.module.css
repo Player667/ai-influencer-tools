@@ -1,0 +1,422 @@
+/* Overall Container */
+.dashboardContainer {
+    display: flex;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    color: #eaeaea;
+    background: linear-gradient(135deg, #0d0d0d, #1a1a1a 40%, #0e0e0e 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .dashboardContainer::before,
+  .dashboardContainer::after {
+    content: "";
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: rgba(122, 95, 255, 0.2);
+    filter: blur(120px);
+    z-index: 0;
+  }
+  
+  .dashboardContainer::before {
+    top: -200px;
+    left: -200px;
+  }
+  
+  .dashboardContainer::after {
+    bottom: -200px;
+    right: -200px;
+  }
+  
+  /* Left Sidebar */
+  .leftSidebar {
+    width: 320px;
+    min-width: 320px;
+    max-width: 320px;
+    padding: 2rem 1.5rem;
+    background: rgba(20, 20, 20, 0.75);
+    backdrop-filter: blur(12px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+  
+  .leftSidebar:hover {
+    transform: scale(1.02);
+  }
+  
+  .sidebarHeader {
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+  }
+  
+  .sidebarHeader h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .sidebarSubtitle {
+    font-size: 0.9rem;
+    color: #ccc;
+    line-height: 1.4;
+  }
+  
+  /* Prompt Container */
+  .promptContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .promptLabel {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 0.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .promptInput {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: #eaeaea;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .promptInput:focus {
+    border-color: #7a5fff;
+    box-shadow: 0 0 8px rgba(122, 95, 255, 0.4);
+  }
+  
+  /* Button Group */
+  .buttonGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  
+  .uploadLabel,
+  .runButton {
+    width: 100%;
+    padding: 1rem;
+    font-size: 0.80rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    backdrop-filter: blur(8px);
+    transition: background-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+  }
+  
+  .uploadLabel:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  }
+  
+  .runButton {
+    /*background: linear-gradient(135deg, #0f0f0f, #7a5fff); */
+    background: linear-gradient(135deg, #0f0f0f, #7a5fff);
+    border: 1px solid #fff;
+    color: white;
+    box-shadow: 0 0 10px rgba(122, 95, 255, 0.4), 0 0 20px rgba(122, 95, 255, 0.3);
+  }
+  
+  .runButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(122, 95, 255, 0.6), 0 0 40px rgba(144, 95, 255, 0.5);
+    animation: glow 1.5s infinite alternate;
+  }
+  
+  @keyframes glow {
+    0% {
+      box-shadow: 0 0 10px rgba(122, 95, 255, 0.4), 0 0 20px rgba(122, 95, 255, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 15px rgba(122, 95, 255, 0.6), 0 0 30px rgba(144, 95, 255, 0.5);
+    }
+    100% {
+      box-shadow: 0 0 10px rgba(122, 95, 255, 0.4), 0 0 20px rgba(122, 95, 255, 0.3);
+    }
+  }
+  
+  .hiddenFileInput {
+    display: none;
+  }
+  
+  /* Mask Controls */
+  .maskControls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: auto;
+  }
+  
+  .maskButton {
+    background-color: #0f0f0f;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    padding: 0.8rem 1.2rem;
+    color: #e0e0e0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+    margin-top: 8px;
+  }
+  
+  .maskButton:hover {
+    background: rgba(60, 60, 60, 0.9);
+    transform: translateY(-2px);
+  }
+  
+  /* Main Canvas Area */
+  .mainContent {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Canvas Wrapper - No fixed dimensions, will be set inline */
+  .canvasWrapper {
+    position: relative;
+    display: inline-block;
+    border: 2px dashed #7a5fff;
+    border-radius: 12px;
+    background: #1a1a1a;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: borderGlow 2s infinite alternate ease-in-out;
+  }
+  
+  @keyframes borderGlow {
+    0% {
+      border-color: #7a5fff;
+      box-shadow: 0 0 10px rgba(122, 95, 255, 0.3);
+    }
+    100% {
+      border-color: #a763ff;
+      box-shadow: 0 0 20px rgba(166, 99, 255, 0.5);
+    }
+  }
+  
+  .canvas {
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .canvasPlaceholder {
+    position: absolute;
+    width: 800px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #888;
+    font-size: 0.9rem;
+  }
+  
+  
+  /* Loading Overlay */
+  .loadingOverlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(6px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    animation: fadeIn 0.3s ease forwards;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .spinner {
+    border: 6px solid rgba(255, 255, 255, 0.2);
+    border-top: 6px solid #7a5fff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 0.9s linear infinite;
+    margin-bottom: 0.5rem;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .loadingText {
+    font-size: 0.95rem;
+    color: #ccc;
+    animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+  
+  /* Right Sidebar (Results) */
+  .rightSidebar {
+    width: 320px;
+    min-width: 320px;
+    background: rgba(20, 20, 20, 0.85);
+    backdrop-filter: blur(12px);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+  }
+  
+  .rightSidebar:hover {
+    transform: scale(1.02);
+  }
+  
+  .resultsTitle {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+  
+  .noResults {
+    color: #888;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  .resultsGallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  /* Result Card (16:9 ratio adjusted to your needs) */
+  .resultCard {
+    position: relative;
+    width: 200px;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(122, 95, 255, 0.4);
+    background: #000;
+  }
+  
+  .resultCard::before {
+    content: "";
+    display: block;
+    padding-top: 110%; /* Adjust this value to set the aspect ratio (e.g., 110% for a near 16:9 look) */
+  }
+  
+  .resultCardContent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: transform 0.3s ease;
+  }
+  
+  .resultCard:hover .resultCardContent {
+    transform: scale(1.03);
+  }
+  
+  .resultOverlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .resultCard:hover .resultOverlay {
+    opacity: 1;
+  }
+  
+  /* Download Button – small dark circle with icon in the top right corner */
+  .downloadButton {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  
+  .downloadButton:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+    transform: scale(1.1);
+  }
+  
+  .downloadButton i {
+    font-size: 1rem;
+    color: #fff;
+  }
+  
