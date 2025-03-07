@@ -1,10 +1,9 @@
-// SignIn.js
+// src/Screens/SignIn.js
 import React, { useState } from 'react';
 import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../config/firebaseConfig';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../config/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
-
-// Import the CSS module (renamed from SignIn.css to SignIn.module.css)
 import styles from '../SignIn.module.css';
 
 const googleProvider = new GoogleAuthProvider();
@@ -23,8 +22,21 @@ const SignIn = () => {
   const handleGoogleSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      console.log('Google Sign-In successful:', result.user);
-      navigate('/pricing');
+      const user = result.user;
+      
+      // If user doc doesn't exist, create it (merging so we don't overwrite)
+      const userDocRef = doc(db, 'users', user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+      if (!userDocSnap.exists()) {
+        await setDoc(userDocRef, {
+          planStatus: 'free',
+          freeQueriesUsed: 0,
+          email: user.email,
+          displayName: user.displayName,
+        });
+      }
+
+      navigate('/dashboard');
     } catch (error) {
       console.error('Google Sign-In failed:', error.message);
       alert(`Google Sign-In failed: ${error.message}`);
@@ -46,8 +58,21 @@ const SignIn = () => {
 
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log('Email Sign-In successful:', userCredential.user);
-      navigate('/pricing');
+      const user = userCredential.user;
+
+      // (Optional) Fetch user doc to confirm planStatus or usage
+      const userDocRef = doc(db, 'users', user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+      if (!userDocSnap.exists()) {
+        // If user doc not found, create it with default fields
+        await setDoc(userDocRef, {
+          planStatus: 'free',
+          freeQueriesUsed: 0,
+          email: user.email,
+        });
+      }
+
+      navigate('/dashboard');
     } catch (error) {
       console.error('Email Sign-In failed:', error.message);
       alert(`Sign-In failed: ${error.message}`);
@@ -68,7 +93,7 @@ const SignIn = () => {
           <input
             type="email"
             id="email"
-            placeholder="shashankp@example.com"
+            placeholder="johndoe@example.com"
             value={formData.email}
             onChange={handleChange}
             className={errors.email ? styles.inputError : ''}

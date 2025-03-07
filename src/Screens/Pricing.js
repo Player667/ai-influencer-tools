@@ -1,12 +1,35 @@
+// src/Screens/Pricing.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { doc, updateDoc } from 'firebase/firestore';
+import { auth, db } from '../config/firebaseConfig';
 import styles from '../Pricing.module.css';
 
 const Pricing = () => {
   const navigate = useNavigate();
 
+  const handleUpgrade = async () => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert("Please sign in first.");
+      navigate("/signin");
+      return;
+    }
+
+    // Open Stripe link in new tab
+    window.open("https://buy.stripe.com/aEUdRlgEPcRA5BC7ss", "_blank");
+
+    // *** Demo Approach *** 
+    // Immediately mark user as premium (in real app, do this after payment confirmation)
+    // const userDocRef = doc(db, "users", user.uid);
+    // await updateDoc(userDocRef, { planStatus: "premium" });
+
+    alert("You are now on the Premium plan! Enjoy unlimited queries.");
+    navigate("/dashboard");
+  };
+
   const handleClick = () => {
-    // Redirect to the dashboard
+    // Just navigate to the dashboard or show more details
     navigate('/dashboard');
   };
 
@@ -29,7 +52,7 @@ const Pricing = () => {
               <li>Flux Infill Generation</li>
               <li>AI Voice Messaging (Standard)</li>
               <li>Basic Content Generation Tools</li>
-              <li>Very Limited Content Generation / Month</li>
+              <li>Limited to 10 free queries / month</li>
             </ul>
             <button onClick={handleClick} className={styles.planButton}>
               Get Started
@@ -51,7 +74,7 @@ const Pricing = () => {
               <li>Unlimited Content Generation</li>
               <li>Priority Support</li>
             </ul>
-            <button onClick={handleClick} className={styles.planButton}>
+            <button onClick={handleUpgrade} className={styles.planButton}>
               Go Pro
             </button>
           </div>
@@ -71,7 +94,7 @@ const Pricing = () => {
               <li>Dedicated 24/7 Support</li>
               <li>Team Collaboration Tools</li>
             </ul>
-            <button onClick={handleClick} className={styles.planButton}>
+            <button onClick={handleUpgrade} className={styles.planButton}>
               Contact Us
             </button>
           </div>

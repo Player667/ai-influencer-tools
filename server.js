@@ -18,7 +18,7 @@ app.post("/generate-image", async (req, res) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Token r8_DyveRv9IUhQJ4wVmhqOYSvUhGaB5mCg3Mt5uq",
+          Authorization: "Token r8_aLL6uecKNa3hIka2MTBdUCn02uzpSo31lQPm6",
         },
         body: JSON.stringify(req.body),
       });
@@ -45,7 +45,7 @@ app.post("/generate-image", async (req, res) => {
         const statusResponse = await fetch(statusUrl, {
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Token r8_DyveRv9IUhQJ4wVmhqOYSvUhGaB5mCg3Mt5uq",
+            Authorization: "Token r8_aLL6uecKNa3hIka2MTBdUCn02uzpSo31lQPm6",
           },
         });
   

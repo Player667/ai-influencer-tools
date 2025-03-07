@@ -1,9 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "../Dashboard.module.css";
 import Replicate from "replicate";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { auth, db } from "../config/firebaseConfig";
+import { useNavigate } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function Dashboard() {
+  const navigate = useNavigate();
   // State for images, prompt, output, and loading
   const [originalImageDataUrl, setOriginalImageDataUrl] = useState(null);
   const [backgroundImg, setBackgroundImg] = useState(null);
@@ -12,7 +16,47 @@ function Dashboard() {
   const [loading, setLoading] = useState(false);
 
   // Canvas and drawing refs
-  const canvasRef = useRef(null);
+  const canvasRef = useRef(null);  // Check & update free usage before running AI
+    // Check & update free usage before running AI
+    const handleRunClick = async () => {
+        const user = auth.currentUser;
+        if (!user) {
+          alert("Please sign in first.");
+          navigate("/signin");
+          return;
+        }
+    
+        try {
+          const userDocRef = doc(db, "users", user.uid);
+          const userDocSnap = await getDoc(userDocRef);
+    
+          if (!userDocSnap.exists()) {
+            alert("User data not found. Please sign out and sign in again.");
+            return;
+          }
+    
+          const userData = userDocSnap.data();
+          if (userData.planStatus === "free") {
+            // Check if user reached free limit
+            if (userData.freeQueriesUsed >= 10) {
+              alert("You've reached your free query limit. Please upgrade to continue.");
+              navigate("/pricing");
+              return;
+            }
+            // Increment usage
+            await updateDoc(userDocRef, {
+              freeQueriesUsed: userData.freeQueriesUsed + 1,
+            });
+            console.log("Free query count", userData.freeQueriesUsed);
+          }
+    
+          // If premium or free < 10 queries, run the model
+          applyFluxFillPro();
+        } catch (error) {
+          console.error("Error checking/updating user doc:", error);
+          alert("Could not verify your plan. Please try again later.");
+        }
+      };
   const canvasWrapperRef = useRef(null); // ref for the canvas wrapper
   const rectanglesRef = useRef([]);
   const selectedRectRef = useRef(null);
